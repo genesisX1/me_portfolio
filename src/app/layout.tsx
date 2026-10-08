@@ -8,5 +8,5 @@ export const metadata: Metadata = {
   icons:{icon:'/favicon.svg'},
 };
 export default function RootLayout({children}:{children:React.ReactNode}) {
-  return <html lang="fr"><head><link rel="preload" href="/fonts/portfolio-sans-regular.woff" as="font" type="font/woff" crossOrigin="anonymous"/><link rel="preload" href="/fonts/portfolio-sans-bold.woff" as="font" type="font/woff" crossOrigin="anonymous"/></head><body>{children}</body></html>;
+  return <html lang="fr" data-theme="dark" style={{colorScheme:'dark'}}><head><link rel="preload" href="/fonts/portfolio-sans-regular.woff" as="font" type="font/woff" crossOrigin="anonymous"/><link rel="preload" href="/fonts/portfolio-sans-bold.woff" as="font" type="font/woff" crossOrigin="anonymous"/></head><body>{children}</body></html>;
 }

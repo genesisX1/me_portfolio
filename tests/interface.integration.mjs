@@ -25,6 +25,8 @@ const openDialog=()=>d.querySelector('dialog[open]');
 function input(name,value){const el=openDialog().querySelector(`[name="${name}"]`);el.value=value;el.dispatchEvent(new w.Event('input',{bubbles:true}));}
 try{
  await tick();
+ assert.equal(d.documentElement.dataset.theme,'dark','La première visite commence en mode sombre');
+ assert.equal(d.querySelector('.site-preferences .theme-options button').getAttribute('aria-label'),'Mode clair');
  assert.equal(d.querySelectorAll('.project-card').length,6);
  assert.equal(d.querySelector('.header .audio-toggle').getAttribute('aria-pressed'),'false','Le son ne démarre jamais automatiquement');await click(d.querySelector('.header .audio-toggle'));assert.equal(d.querySelector('.header .audio-toggle').getAttribute('aria-pressed'),'false','Un navigateur sans Web Audio garde le site utilisable');assert.equal(d.querySelector('.header .audio-toggle').title,'Son indisponible — réessayer');
  assert.equal(d.querySelector('.intro-replay'),null);assert.ok(d.querySelector('.hero.intro-ready'),'L’introduction initiale reste active');assert.ok(d.querySelector('.header .site-preferences'));assert.ok(!d.querySelector('.hero-aside').textContent.includes('EXPLORER MON UNIVERS'));
@@ -113,7 +115,7 @@ try{
  assert.match(bookingLink.textContent,/Book an appointment/);
  assert.match(booking.querySelector('.booking-zone-note').textContent,/time zone/);
  await click(d.querySelector('.site-preferences .theme-options button'));
- assert.equal(d.documentElement.dataset.theme,'dark');
+ assert.equal(d.documentElement.dataset.theme,'light');
  await click(d.querySelector('.contact-brief'));assert.equal(openDialog().getAttribute('aria-label'),'Prepare your project');
  assert.equal(openDialog().querySelector('option').value,'Site ou application','Les valeurs autorisées restent stables');
  assert.equal(openDialog().querySelector('option').textContent,'Website or application');
@@ -127,9 +129,9 @@ try{
  await click(openDialog().querySelector('.game-close'));
  await click(menu);assert.equal(openDialog().getAttribute('aria-label'),'Mobile navigation');
  assert.match(openDialog().textContent,/Book a call/);await click(openDialog().querySelector('.drawer-heading button'));
- assert.equal(w.localStorage.getItem('joackim-language'),'en');assert.equal(w.localStorage.getItem('joackim-theme'),'dark');
+ assert.equal(w.localStorage.getItem('joackim-language'),'en');assert.equal(w.localStorage.getItem('joackim-theme'),'light');
  await click(d.querySelector('.site-preferences .language-toggle'));assert.equal(d.documentElement.lang,'fr');
- await click(d.querySelector('.site-preferences .theme-options button'));assert.equal(d.documentElement.dataset.theme,'light');
+ await click(d.querySelector('.site-preferences .theme-options button'));assert.equal(d.documentElement.dataset.theme,'dark');
  assert.deepEqual(errors,[]);
  console.log('OK : survol / sortie / clic portrait, filtres, liens directs des projets, services, défi complet et rejouer, message préparé, réservation Google directe FR/EN, menu et Échap.');
  console.log('OK : fichier autonome, images embarquées, aucune erreur JavaScript détectée.');

@@ -21,10 +21,10 @@ function localizeNode(node:ReactNode,language:Language):ReactNode{
  return cloneElement(element,updates);
 }
 type PreferencesValue={language:Language;theme:Theme;setLanguage:(value:Language)=>void;setTheme:(value:Theme)=>void;t:(text:string)=>string;localize:(node:ReactNode)=>ReactNode};
-const PreferencesContext=createContext<PreferencesValue>({language:'fr',theme:'light',setLanguage:()=>{},setTheme:()=>{},t:text=>text,localize:node=>node});
+const PreferencesContext=createContext<PreferencesValue>({language:'fr',theme:'dark',setLanguage:()=>{},setTheme:()=>{},t:text=>text,localize:node=>node});
 export function PreferencesProvider({children}:{children:ReactNode}){
  // Same first render on the server and client; read browser preferences only after hydration.
- const [language,setLanguage]=useState<Language>('fr'),[theme,setTheme]=useState<Theme>('light'),[ready,setReady]=useState(false);
+ const [language,setLanguage]=useState<Language>('fr'),[theme,setTheme]=useState<Theme>('dark'),[ready,setReady]=useState(false);
  useEffect(()=>{try{const l=localStorage.getItem('joackim-language'),th=localStorage.getItem('joackim-theme');if(l==='fr'||l==='en')setLanguage(l);if(th==='light'||th==='dark')setTheme(th);}catch{}setReady(true);},[]);
  useEffect(()=>{document.documentElement.lang=language;document.documentElement.dataset.theme=theme;document.documentElement.style.colorScheme=theme;document.title=language==='en'?'Joackim DATE — Developer & Designer':'Joackim DATE — Développeur & Designer';const description=document.querySelector('meta[name="description"]');description?.setAttribute('content',language==='en'?'Two perspectives, one standard. The portfolio of Joackim DATE, full-stack developer and graphic designer in Lomé.':'Deux regards, une même exigence. Le portfolio de Joackim DATE, développeur Full-Stack et graphiste à Lomé.');if(ready)try{localStorage.setItem('joackim-language',language);localStorage.setItem('joackim-theme',theme);}catch{}},[language,theme,ready]);
  const value=useMemo(()=>({language,theme,setLanguage,setTheme,t:(text:string)=>translate(text,language),localize:(node:ReactNode)=>localizeNode(node,language)}),[language,theme]);
