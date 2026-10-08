@@ -81,28 +81,16 @@ try{
  await click(menu);openDialog().dispatchEvent(new w.MouseEvent('click',{bubbles:true}));await tick();assert.equal(openDialog(),null,'Le clic sur le fond ferme le menu');
 
  const booking=d.querySelector('#booking');
- const available=()=>[...booking.querySelectorAll('.calendar-days button')].filter(e=>!e.disabled);
- assert.ok(available().length>1,'Des jours futurs sont proposés');
- await click(available()[0]);
- assert.ok(booking.querySelector('.selected-day'));
- await click(booking.querySelector('.booking-times button'));
- assert.ok(booking.querySelector('form'));
- const firstSlot=booking.querySelector('.booking-times button[aria-pressed="true"]').textContent;
- for(const [name,value] of [['name','Visiteur test'],['email','visiteur@example.com'],['message','Un site institutionnel à présenter.']]){const el=booking.querySelector(`[name="${name}"]`);el.value=value;el.dispatchEvent(new w.Event('input',{bubbles:true}));}
- booking.querySelector('form').dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));await tick();
- const request=booking.querySelector('.booking-result');assert.ok(request);
- const requestLink=request.querySelector('a[href^="mailto:"]');assert.match(decodeURIComponent(requestLink.href),/Visiteur test/);assert.match(decodeURIComponent(requestLink.href),/Ce créneau n’est pas réservé/);assert.match(decodeURIComponent(requestLink.href),new RegExp(firstSlot));
- assert.equal(d.activeElement,request,'Le récapitulatif reçoit le focus');
- await click(request.querySelector('button'));
- assert.ok(exported);const calendar=await new Promise((resolve,reject)=>{const reader=new w.FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsText(exported);});assert.match(calendar,/STATUS:TENTATIVE/);assert.match(calendar,/TRANSP:TRANSPARENT/);
- await click(available()[1]);
- assert.equal(booking.querySelector('.booking-result'),null,'Changer de jour annule la demande préparée');
- assert.equal(booking.querySelector('form'),null,'Changer de jour efface le créneau');
- const monthLabel=booking.querySelector('.calendar-header h3').textContent;
- await click(booking.querySelector('[aria-label="Mois suivant"]'));
- assert.notEqual(booking.querySelector('.calendar-header h3').textContent,monthLabel);assert.equal(booking.querySelector('.selected-day'),null);
- await click(booking.querySelector('[aria-label="Mois précédent"]'));assert.equal(booking.querySelector('.calendar-header h3').textContent,monthLabel);
- assert.equal(booking.querySelector('[aria-label="Mois précédent"]').disabled,true);
+ const bookingLink=booking.querySelector('a.booking-link');
+ assert.ok(bookingLink,'La réservation Google est accessible');
+ assert.equal(bookingLink.href,'https://calendar.app.google/vQuqsgytRnD3fLjU8');
+ assert.equal(bookingLink.target,'_blank');assert.equal(bookingLink.rel,'noopener noreferrer');
+ assert.match(booking.querySelector('.booking-duration').textContent,/45 minutes/);
+ assert.equal(booking.querySelectorAll('form,.calendar-days,.booking-times').length,0,'Aucun créneau fictif ni formulaire manuel');
+ const bookingEvent=new w.MouseEvent('click',{bubbles:true,cancelable:true});let bookingIntercepted=false;
+ d.addEventListener('click',e=>{bookingIntercepted=e.defaultPrevented;e.preventDefault();},{once:true});
+ bookingLink.dispatchEvent(bookingEvent);await tick();assert.equal(bookingIntercepted,false,'La réservation ouvre une navigation native');
+ assert.equal(openDialog(),null);assert.equal(exported,undefined,'Aucune proposition ICS non confirmée');
  assert.equal(d.querySelectorAll('.career-row').length,3);
  assert.equal(d.querySelectorAll('a[href=""]').length,0);
  assert.equal(d.querySelectorAll('.hero-socials [aria-disabled="true"]').length,1);
@@ -121,7 +109,9 @@ try{
  assert.equal(d.documentElement.lang,'en');assert.equal(d.querySelector('.hero-intro h2').textContent,'Full-Stack Developer');
  assert.match(d.querySelector('#services .simple-heading p').textContent,/From idea to screen/);
  assert.match(d.querySelector('#work .motion-title').textContent,/SELECTED WORK/);
- assert.match(d.querySelector('.calendar-header h3').textContent,/[A-Za-z]+ [0-9]{4}/);
+ assert.equal(bookingLink.getAttribute('aria-label'),'Book an appointment — new tab');
+ assert.match(bookingLink.textContent,/Book an appointment/);
+ assert.match(booking.querySelector('.booking-zone-note').textContent,/time zone/);
  await click(d.querySelector('.site-preferences .theme-options button'));
  assert.equal(d.documentElement.dataset.theme,'dark');
  await click(d.querySelector('.contact-brief'));assert.equal(openDialog().getAttribute('aria-label'),'Prepare your project');
@@ -141,6 +131,6 @@ try{
  await click(d.querySelector('.site-preferences .language-toggle'));assert.equal(d.documentElement.lang,'fr');
  await click(d.querySelector('.site-preferences .theme-options button'));assert.equal(d.documentElement.dataset.theme,'light');
  assert.deepEqual(errors,[]);
- console.log('OK : survol / sortie / clic portrait, filtres, liens directs des projets, services, défi complet et rejouer, message préparé, calendrier, créneau, formulaire, changement de mois, proposition ICS, menu et Échap.');
+ console.log('OK : survol / sortie / clic portrait, filtres, liens directs des projets, services, défi complet et rejouer, message préparé, réservation Google directe FR/EN, menu et Échap.');
  console.log('OK : fichier autonome, images embarquées, aucune erreur JavaScript détectée.');
 }finally{dom.window.close();}

@@ -52,9 +52,9 @@ Un nouveau commit sur le dépôt lié à Vercel déclenchera une nouvelle compil
 
 ## Après publication
 
-Vérifiez le loader, la bascule Code/Design, les six liens des projets, les filtres, les services, le défi et le formulaire de rendez-vous. Contrôlez aussi FR/EN, clair/sombre, le son activé manuellement et la version mobile. Si le téléphone utilise « Réduire les animations », les animations sont volontairement limitées.
+Vérifiez le loader, la bascule Code/Design, les six liens des projets, les filtres, les services, le défi et le bouton de réservation Google Agenda. Contrôlez aussi FR/EN, clair/sombre, le son activé manuellement et la version mobile. Si le téléphone utilise « Réduire les animations », les animations sont volontairement limitées.
 
-Les emails et rendez-vous restent des demandes à envoyer et confirmer manuellement : aucun backend d’envoi n’est requis. Le site reste noindex/nofollow comme la version actuelle ; la finalisation SEO n’est pas effectuée dans cet export.
+Le formulaire de contact prépare un email à envoyer manuellement. Les rendez-vous se réservent sur la page Google Agenda reliée au bouton de la section Rendez-vous ; aucun backend ni clé privée Google n’est requis. Le lien se modifie dans `src/data/portfolio.ts` (`profile.bookingUrl`). La durée affichée dans `src/components/Booking.tsx` doit correspondre à celle configurée sur Google Agenda (actuellement 45 minutes). Le site reste noindex/nofollow comme la version actuelle ; la finalisation SEO n’est pas effectuée dans cet export.
 
 L’adresse `joackimdate-portfolio.genesisxv.chatgpt.site` appartient à l’hébergement actuel et ne se transfère pas à Vercel. Votre déploiement Vercel aura sa propre adresse ; vous pourrez ensuite y connecter un domaine que vous possédez.
 

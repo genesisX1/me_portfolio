@@ -476,3 +476,24 @@ html[data-theme=dark] .header .site-preferences button:hover{background:#ffffff0
 
 /* SVG icons keep their shape on browsers with emoji fonts. */
 .interface-icon{display:inline-block;width:1em;height:1em;vertical-align:-.12em;flex-shrink:0;overflow:visible}.signature-badge .interface-icon{width:1em;height:1em;animation:none}.theme-options .interface-icon{width:20px;height:20px}html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+
+/* Réservation Google : conserver le panneau et les reveals, sans faux créneaux locaux. */
+.booking-connected{align-items:stretch}
+.booking-invitation{display:flex;flex-direction:column;align-items:flex-start;gap:20px;min-width:0}
+.booking-clock{display:flex;align-items:center;gap:18px;margin:8px 0}
+.booking-clock svg{width:64px;height:64px;flex-shrink:0}
+.booking-clock>span{font-size:64px;letter-spacing:-3px;line-height:1;font-weight:500}
+.booking-clock>span>span{font-size:13px;letter-spacing:1px;margin-left:10px}
+.booking-invitation h3{font-size:clamp(25px,3vw,36px);line-height:1.25;letter-spacing:-1px;font-weight:500;max-width:360px}
+.booking-invitation>p,.booking-steps p,.booking-zone-note{font-size:16px;line-height:1.7;color:var(--muted,#66665f)}
+.booking-invitation .booking-link{margin-top:auto;min-height:48px}
+.booking-invitation>.booking-external-note{font-size:13px;line-height:1.6}
+.booking-guide{min-height:0;padding:8px 0;min-width:0}
+.booking-steps{list-style:none;counter-reset:none;padding:0;margin:24px 0}
+.booking-steps li{display:flex;gap:18px;padding:20px 0;border-bottom:1px solid #8883}
+.booking-steps li:first-child{padding-top:0}
+.booking-steps li>span{font-family:"Portfolio Mono",monospace;font-size:13px;line-height:1.7;color:var(--muted,#66665f);padding-top:2px}
+.booking-steps h3{font-size:20px;font-weight:500;line-height:1.4;letter-spacing:-.5px;margin-bottom:8px}
+.booking-guide .booking-zone-note{font-size:13px;line-height:1.7}
+html[data-theme=dark] .booking :is(.booking-invitation>p,.booking-steps p,.booking-steps li>span,.booking-zone-note){color:#bdc4b5}
+@media(max-width:760px){.booking-invitation{padding:24px;gap:18px}.booking-clock>span{font-size:56px}.booking-invitation .booking-link{width:100%;justify-content:space-between;font-size:14px}.booking-steps{margin-bottom:18px}.booking-invitation>p,.booking-steps p{font-size:15px}.booking-steps h3{font-size:19px}}

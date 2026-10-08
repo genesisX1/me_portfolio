@@ -7,7 +7,7 @@ export const profile = {
   developerTitle: 'Développeur Full-Stack', designerTitle: 'Graphiste & Designer',
   description: 'Je conçois des expériences web et des identités visuelles. Du premier trait à la dernière ligne de code.',
   email: 'joackimdate1@gmail.com', whatsapp: '', github: GITHUB_URL, linkedin: LINKEDIN_URL, instagram: '',
-  bookingUrl: '', availability: 'Parlons de votre prochain projet',
+  bookingUrl: 'https://calendar.app.google/vQuqsgytRnD3fLjU8', availability: 'Parlons de votre prochain projet',
 };
 export type Project = {
   id: string; title: string; category: 'Web' | 'Design'; type: string;
