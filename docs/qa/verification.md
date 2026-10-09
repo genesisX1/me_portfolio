@@ -1,3 +1,5 @@
+> Historique des contrôles du 7 octobre 2026 : les entrées ci-dessous décrivent les versions de l’époque, notamment l’ancien calendrier local. La réservation actuelle utilise Google Agenda. Pour le nettoyage des fichiers du 9 octobre, consulter `../NETTOYAGE-FICHIERS.md`.
+
 # Vérification — 7 octobre 2026, rendez-vous et mouvements
 
 - Vérification des types, 12 tests unitaires, compilation de production, HTML autonome et tests DOM d’intégration.

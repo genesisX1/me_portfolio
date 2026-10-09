@@ -4,7 +4,7 @@ Audit réalisé le 7 octobre 2026. Périmètre : code du portfolio, dépendances
 
 ## Architecture et données
 
-Le déploiement est un export statique Next.js. Aucun serveur Next.js, API métier, compte visiteur, base de données ni téléversement de fichier ne sont exposés par le projet. Les formulaires préparent localement des messages et un fichier calendrier ; ils ne transmettent rien à une API du portfolio. Le visiteur choisit ensuite d'envoyer l'email depuis sa messagerie. Les coordonnées professionnelles et les images affichées sont publiques, pas des secrets. Les scores et le code du défi restent locaux à la partie. Le score n'est pas une preuve certifiée et peut être modifié par le visiteur.
+Le déploiement est un export statique Next.js. Aucun serveur Next.js, API métier, compte visiteur, base de données ni téléversement de fichier ne sont exposés par le projet. Le formulaire de contact prépare localement un message ; il ne transmet rien à une API du portfolio. La réservation ouvre la page Google Agenda configurée. Le visiteur choisit ensuite d'envoyer l'email depuis sa messagerie. Les coordonnées professionnelles et les images affichées sont publiques, pas des secrets. Les scores et le code du défi restent locaux à la partie. Le score n'est pas une preuve certifiée et peut être modifié par le visiteur.
 
 ## Protections ajoutées
 
@@ -14,7 +14,7 @@ Le déploiement est un export statique Next.js. Aucun serveur Next.js, API méti
 | Ressources | Sources restreintes ; objets et workers interdits ; pas de ressources distantes autorisées par la politique principale. |
 | Formulaires | Longueurs et types vérifiés par le code, sujets autorisés explicitement, caractères de contrôle et retours à la ligne dans le nom refusés, emails contrôlés. Le contenu libre reste du texte et est échappé par React. |
 | Liens | HTTPS uniquement et refus des identifiants intégrés ; liens projets en nouvel onglet avec `noopener noreferrer`. |
-| Calendrier | Retours chariot et sauts de ligne échappés dans l'ICS, évitant l'injection de propriétés calendrier ; rendez-vous proposé, non réservé. |
+| Rendez-vous | Lien HTTPS vers Google Agenda ; réservation et coordonnées gérées sur cette page externe, sans clé privée Google dans le portfolio. |
 | Défi | Runner séparé du portfolio, iframe `sandbox="allow-scripts"` sans `allow-same-origin`, popups, formulaires, navigation du parent ni téléchargements. CSP propre au sandbox : réseau, frames, objets et workers interdits. |
 | Échanges du défi | Fenêtre source, origine opaque `null`, jeton renouvelé et structure des messages vérifiés ; résultats et libellés bornés ; jeton invalidé à la fermeture. |
 | Charge locale | 64 000 caractères maximum par langage, document de lancement limité à 300 000 caractères, délai de réponse de 5 secondes. |
@@ -24,6 +24,8 @@ Le déploiement est un export statique Next.js. Aucun serveur Next.js, API méti
 Les styles inline restent autorisés : Framer Motion utilise ces styles pour les animations. Cette permission CSS ne donne pas l'autorisation d'exécuter des scripts inline arbitraires. Les permissions d'exécution du défi restent confinées à son iframe. Le fichier HTML autonome embarque le runner et conserve le sandbox ; il n'est pas servi avec les en-têtes HTTP d'un hébergeur ni avec la CSP à empreintes de l'export Next.js.
 
 ## Vérifications réalisées
+
+Les résultats et nombres de tests ci-dessous relatent l’audit initial du 7 octobre. Les tests de l’ancien calendrier local ont été retirés avec ce module le 9 octobre ; les contrôles du formulaire, du défi et de la réservation Google restent actifs. Voir `NETTOYAGE-FICHIERS.md`.
 
 - `npm audit --json` : aucune vulnérabilité connue signalée pour le verrouillage de dépendances présent au moment de l'audit. Ce résultat n'est pas une garantie contre les vulnérabilités futures.
 - 28 tests unitaires : formulaires malveillants, protocoles dangereux, injections de destinataire et de propriétés ICS, faux messages de défi, portraits, mouvements, calendrier et missions.

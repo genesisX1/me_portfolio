@@ -1,6 +1,6 @@
 # Héberger le portfolio sur votre compte Vercel
 
-Ce dossier contient les sources de la version publiée V33 (commit 61a3c3ed9c24f1d0fecbe5412a313dcba1f26b48), les six projets, les deux portraits et les dernières corrections mobiles. La configuration Vercel est ajoutée pour cet export uniquement.
+Ce dépôt contient les sources du portfolio, les six projets, les deux portraits et la configuration de son export statique sur Vercel.
 
 ## Déploiement depuis GitHub
 
@@ -45,8 +45,8 @@ Ouvrez http://localhost:4173. Cette archive allégée contient les sources compl
 - Projets, descriptions et coordonnées : `src/data/portfolio.ts`.
 - Captures et portraits : `public/images/`.
 - Traductions : `src/data/translations.json`.
-- Styles et adaptations mobiles : `src/app/globals.css`.
-- Rendez-vous : `src/lib/booking.mjs`.
+- Styles et adaptations mobiles : `src/styles/` (importés par `src/app/globals.css`).
+- Rendez-vous : `profile.bookingUrl` dans `src/data/portfolio.ts`, présentation dans `src/components/Booking.tsx`.
 
 Un nouveau commit sur le dépôt lié à Vercel déclenchera une nouvelle compilation. La CSP est régénérée pour correspondre aux scripts de chaque build ; ne copiez pas des empreintes CSP d’une ancienne compilation. Les en-têtes de protection supplémentaires sont déclarés dans `vercel.json`.
 

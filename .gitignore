@@ -3,3 +3,6 @@ node_modules/
 out/
 *.tsbuildinfo
 .env*
+
+# Generated offline export; regenerate with npm run standalone.
+OUVRIR-LE-PORTFOLIO.html

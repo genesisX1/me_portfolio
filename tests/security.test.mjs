@@ -2,7 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {validateRequest,briefServices,validEmail} from '../src/lib/security.mjs';
 import {safeExternalUrl} from '../src/lib/interaction.mjs';
-import {requestMailto,tentativeCalendar} from '../src/lib/booking.mjs';
 import {validChallengeMessage} from '../src/lib/codeChallenge.mjs';
 const valid={name:'Joackim',email:'test@example.com',service:briefServices[0],message:'Un projet clair et utile.'};
 test('Payloads de formulaire : rejeter contrôles, faux sujets et dépassements sans altérer le texte',()=>{
@@ -14,10 +13,8 @@ test('Liens externes : bloquer protocoles actifs, HTTP et identifiants intégré
  for(const url of ['javascript:alert(1)','data:text/html,test','http://example.com','https://user:secret@example.com','file:///secret'])assert.equal(safeExternalUrl(url),'');
  assert.equal(safeExternalUrl('https://github.com/genesisX1'),'https://github.com/genesisX1');
 });
-test('Email et ICS : empêcher injection de destinataire et de propriétés calendrier',()=>{
- for(const recipient of ['a@example.com?bcc=x@y.com','a@example.com\r\nBcc:x@y.com']){assert.equal(validEmail(recipient),false);assert.throws(()=>requestMailto(recipient,{}));}
- const ics=tentativeCalendar({day:'2026-10-08',time:'09:00',service:'Projet\rATTENDEE:evil@example.com'});
- assert.doesNotMatch(ics,/\r\nATTENDEE:/);assert.match(ics,/\\nATTENDEE:/);
+test('Email : rejeter les injections de destinataire',()=>{
+ for(const recipient of ['a@example.com?bcc=x@y.com','a@example.com\r\nBcc:x@y.com'])assert.equal(validEmail(recipient),false);
 });
 test('Messages du défi : rejeter session fermée, objets malformés et labels géants',()=>{
  for(const data of [{type:'challenge-result',token:'',results:[]},{type:'challenge-result',token:'token',results:[null]},{type:'challenge-result',token:'token',results:[{label:'a'.repeat(301),pass:true}]}])assert.equal(validChallengeMessage(data,data.token),false);

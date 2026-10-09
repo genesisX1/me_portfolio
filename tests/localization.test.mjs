@@ -3,16 +3,12 @@ import assert from 'node:assert/strict';
 import {JSDOM} from 'jsdom';
 import {translate,localizedExercises} from '../src/lib/localization.mjs';
 import {exercises,challengeDocument,challengeScore} from '../src/lib/codeChallenge.mjs';
-import {bookingMessage,requestMailto,tentativeCalendar,formatDay} from '../src/lib/booking.mjs';
 import {makeBrief} from '../src/lib/interaction.mjs';
-test('English booking exports keep UTC times, tentative status and translated service names',()=>{
- const fields={day:'2026-10-12',time:'09:00',name:'Client',email:'client@example.com',service:'Site ou application',message:'A website for my business.'};
- assert.match(formatDay(fields.day,'en'),/Monday/);
- assert.match(bookingMessage(fields,'en'),/Website or application/);
- assert.match(decodeURIComponent(requestMailto('joackimdate1@gmail.com',fields,'en')),/This time slot is not reserved/);
- const calendar=tentativeCalendar(fields,new Date('2026-10-07T00:00:00Z'),'en');
- assert.match(calendar,/DTSTART:20261012T090000Z/);assert.match(calendar,/STATUS:TENTATIVE/);assert.match(calendar,/TRANSP:TRANSPARENT/);
- assert.match(calendar,/Suggestion only/);assert.match(makeBrief(fields,'en'),/PROJECT REQUEST/);
+test('English contact brief and project labels remain translated',()=>{
+ const fields={name:'Client',email:'client@example.com',service:'Site ou application',message:'A website for my business.'};
+ const brief=makeBrief(fields,'en');
+ assert.match(brief,/PROJECT REQUEST/);
+ assert.match(brief,/Website or application/);
  assert.equal(translate('Voir le projet CIAU — nouvel onglet','en'),'View project CIAU — new tab');
 });
 test('English challenge fallback and tests agree and preserve the opaque sandbox',async()=>{
