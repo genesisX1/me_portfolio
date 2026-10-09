@@ -1,4 +1,5 @@
 import {build} from 'esbuild';
+import {homeEntryScript} from '../src/lib/home-entry.mjs';
 import {readFile,writeFile,readdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 const root=resolve('.');
@@ -19,6 +20,6 @@ for(const file of ['portfolio-sans-regular.woff','portfolio-sans-bold.woff','por
  embeddedStyles=embeddedStyles.replaceAll('/fonts/'+file,data);
 }
 const favicon='data:image/svg+xml;base64,'+(await readFile('public/favicon.svg')).toString('base64');
-const html=`<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Joackim DATE — Développeur & Designer</title><link rel="icon" href="${favicon}"><style>${embeddedStyles.replaceAll('</style','<\\/style')}</style></head><body><div id="root"></div><noscript>Activez JavaScript pour découvrir les interactions du portfolio.</noscript><script>${js.replaceAll('</script','<\\/script')}</script></body></html>`;
+const html=`<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><script>${homeEntryScript}</script><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Joackim DATE — Développeur & Designer</title><link rel="icon" href="${favicon}"><style>${embeddedStyles.replaceAll('</style','<\\/style')}</style></head><body><div id="root"></div><noscript>Activez JavaScript pour découvrir les interactions du portfolio.</noscript><script>${js.replaceAll('</script','<\\/script')}</script></body></html>`;
 await writeFile(resolve(root,'OUVRIR-LE-PORTFOLIO.html'),html);
 console.log('Version autonome créée : OUVRIR-LE-PORTFOLIO.html ('+(Buffer.byteLength(html)/1024/1024).toFixed(1)+' Mo)');

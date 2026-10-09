@@ -6,6 +6,7 @@ const html=await readFile(new URL('../OUVRIR-LE-PORTFOLIO.html',import.meta.url)
 const errors=[];let exported;
 const consoleSink=new VirtualConsole();consoleSink.on('jsdomError',e=>errors.push(e.message));
 const dom=new JSDOM(html,{runScripts:'dangerously',pretendToBeVisual:true,url:'file:///portfolio/OUVRIR-LE-PORTFOLIO.html',virtualConsole:consoleSink,beforeParse(w){
+ w.scrollTo=()=>{};
  w.matchMedia=q=>({matches:q.includes('prefers-reduced-motion'),media:q,addListener(){},removeListener(){},addEventListener(){},removeEventListener(){}});
  w.IntersectionObserver=class{constructor(cb){this.cb=cb;}observe(target){this.cb([{target,isIntersecting:true,intersectionRatio:1}]);}unobserve(){}disconnect(){}};
  w.ResizeObserver=class{observe(){}unobserve(){}disconnect(){}};
