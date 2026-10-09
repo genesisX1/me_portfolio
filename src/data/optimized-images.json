@@ -1,0 +1,34 @@
+{
+  "/images/developer.png": {
+    "src": "/images/optimized/developer-1122.webp",
+    "srcSet": "/images/optimized/developer-560.webp 560w, /images/optimized/developer-840.webp 840w, /images/optimized/developer-1122.webp 1122w"
+  },
+  "/images/designer.png": {
+    "src": "/images/optimized/designer-1122.webp",
+    "srcSet": "/images/optimized/designer-560.webp 560w, /images/optimized/designer-840.webp 840w, /images/optimized/designer-1122.webp 1122w"
+  },
+  "/images/projects/ciau.png": {
+    "src": "/images/optimized/projects/ciau-1890.webp",
+    "srcSet": "/images/optimized/projects/ciau-640.webp 640w, /images/optimized/projects/ciau-960.webp 960w, /images/optimized/projects/ciau-1440.webp 1440w, /images/optimized/projects/ciau-1890.webp 1890w"
+  },
+  "/images/projects/cave-du-bourgeois.png": {
+    "src": "/images/optimized/projects/cave-du-bourgeois-1888.webp",
+    "srcSet": "/images/optimized/projects/cave-du-bourgeois-640.webp 640w, /images/optimized/projects/cave-du-bourgeois-960.webp 960w, /images/optimized/projects/cave-du-bourgeois-1440.webp 1440w, /images/optimized/projects/cave-du-bourgeois-1888.webp 1888w"
+  },
+  "/images/projects/the316tech.png": {
+    "src": "/images/optimized/projects/the316tech-1867.webp",
+    "srcSet": "/images/optimized/projects/the316tech-640.webp 640w, /images/optimized/projects/the316tech-960.webp 960w, /images/optimized/projects/the316tech-1440.webp 1440w, /images/optimized/projects/the316tech-1867.webp 1867w"
+  },
+  "/images/projects/afripul-support.png": {
+    "src": "/images/optimized/projects/afripul-support-1893.webp",
+    "srcSet": "/images/optimized/projects/afripul-support-640.webp 640w, /images/optimized/projects/afripul-support-960.webp 960w, /images/optimized/projects/afripul-support-1440.webp 1440w, /images/optimized/projects/afripul-support-1893.webp 1893w"
+  },
+  "/images/projects/mauvais-temps.png": {
+    "src": "/images/optimized/projects/mauvais-temps-1872.webp",
+    "srcSet": "/images/optimized/projects/mauvais-temps-640.webp 640w, /images/optimized/projects/mauvais-temps-960.webp 960w, /images/optimized/projects/mauvais-temps-1440.webp 1440w, /images/optimized/projects/mauvais-temps-1872.webp 1872w"
+  },
+  "/images/projects/sceau-origines.png": {
+    "src": "/images/optimized/projects/sceau-origines-1886.webp",
+    "srcSet": "/images/optimized/projects/sceau-origines-640.webp 640w, /images/optimized/projects/sceau-origines-960.webp 960w, /images/optimized/projects/sceau-origines-1440.webp 1440w, /images/optimized/projects/sceau-origines-1886.webp 1886w"
+  }
+}

@@ -497,3 +497,9 @@ html[data-theme=dark] .header .site-preferences button:hover{background:#ffffff0
 .booking-guide .booking-zone-note{font-size:13px;line-height:1.7}
 html[data-theme=dark] .booking :is(.booking-invitation>p,.booking-steps p,.booking-steps li>span,.booking-zone-note){color:#bdc4b5}
 @media(max-width:760px){.booking-invitation{padding:24px;gap:18px}.booking-clock>span{font-size:56px}.booking-invitation .booking-link{width:100%;justify-content:space-between;font-size:14px}.booking-steps{margin-bottom:18px}.booking-invitation>p,.booking-steps p{font-size:15px}.booking-steps h3{font-size:19px}}
+
+/* Responsive sources inherit the existing image layout, including alpha hit tests. */
+.optimized-picture{display:contents}
+.intro-short .intro-greeting,.intro-short .intro-progress{display:none}
+.intro-short .intro-code,.intro-short .intro-design,.intro-short .intro-design b{animation:none;opacity:1;transform:none}
+.intro-short.intro-leaving .intro-panel{animation-duration:.35s}

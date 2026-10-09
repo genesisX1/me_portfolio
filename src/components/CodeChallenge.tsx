@@ -1,5 +1,5 @@
 'use client';
-import {usePreferences,PreferenceControls} from './Preferences';
+import {usePreferences} from './Preferences';
 import {useEffect,useRef,useState} from 'react';
 import {exercises as originalExercises,challengeDocument,challengeScore,validChallengeMessage} from '@/lib/codeChallenge.mjs';
 import {localizedExercises} from '@/lib/localization.mjs';
@@ -9,7 +9,7 @@ type Code={html:string;css:string;js:string};
 type Result={label:string;pass:boolean};
 const initial=(index:number):Code=>({html:originalExercises[index].html,css:originalExercises[index].css,js:originalExercises[index].js});
 export default function CodeChallenge(){
- const {localize,t,language}=usePreferences();
+ const {localize,language}=usePreferences();
  const [open,setOpen]=useState(false),[phase,setPhase]=useState('intro'),[index,setIndex]=useState(0),[code,setCode]=useState<Code>(initial(0)),[tab,setTab]=useState<keyof Code>('js'),[view,setView]=useState('preview'),[results,setResults]=useState<Result[]>([]),[hint,setHint]=useState(false),[seconds,setSeconds]=useState(0),[scores,setScores]=useState<number[]>([]),[busy,setBusy]=useState(false),[preview,setPreview]=useState('');
  const dialog=useRef<HTMLDialogElement>(null),frame=useRef<HTMLIFrameElement>(null),token=useRef(''),timer=useRef<ReturnType<typeof setTimeout>|null>(null),started=useRef(0),testing=useRef(false);
  const exercises=localizedExercises(originalExercises,language);

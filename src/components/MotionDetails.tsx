@@ -1,43 +1,18 @@
 'use client';
-import {usePreferences,PreferenceControls} from './Preferences';
+import {usePreferences} from './Preferences';
 import {useEffect,useState,useRef,type ReactNode} from 'react';
 import {safeExternalUrl} from '@/lib/interaction.mjs';
 
-export function Intro({onReady}:{onReady:(ready:boolean)=>void}){
- const {localize,t,language}=usePreferences();
- const [phase,setPhase]=useState<'boot'|'loading'|'leaving'|'done'>('boot');
- useEffect(()=>{
-  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-  let cancelled=false;const timers:number[]=[];const cleanups:(()=>void)[]=[];
-  const finish=()=>{if(!cancelled){setPhase('done');onReady(true);}};
-  if(reduced.matches){finish();return;}
-  setPhase('loading');
-  const delay=(ms:number)=>new Promise<void>(resolve=>timers.push(window.setTimeout(resolve,ms)));
-  const portraits=[...document.querySelectorAll<HTMLImageElement>('.portrait')];
-  const images=Promise.all(portraits.map(image=>new Promise<void>(resolve=>{
-   const loaded=()=>{if(image.decode)image.decode().catch(()=>{}).then(resolve);else resolve();};
-   if(image.complete){loaded();return;}
-   image.addEventListener('load',loaded,{once:true});image.addEventListener('error',loaded,{once:true});
-   cleanups.push(()=>{image.removeEventListener('load',loaded);image.removeEventListener('error',loaded);});
-  })));
-  // A slow or failed image must never hold the introduction indefinitely.
-  Promise.all([delay(1500),Promise.race([images,delay(4000)])]).then(()=>{
-   if(cancelled||reduced.matches)return;
-   setPhase('leaving');onReady(true);timers.push(window.setTimeout(finish,750));
-  });
-  const change=()=>{if(reduced.matches)finish();};reduced.addEventListener('change',change);
-  return()=>{cancelled=true;timers.forEach(clearTimeout);cleanups.forEach(fn=>fn());reduced.removeEventListener('change',change);};
- },[onReady]);
- return localize(<div className={`intro-cover intro-${phase}`} aria-hidden="true"><span className="intro-greeting">Bonjour.</span><div className="intro-panel intro-left"><span className="intro-code">CODE <b>&lt;/&gt;</b></span></div><div className="intro-panel intro-right"><span className="intro-design">DESIGN <b>✳</b></span></div><div className="intro-progress"><span>JOACKIM DATE</span><i><b/></i><span>CODE + DESIGN</span></div></div>);
-}
+export { Intro } from './Intro';
+
 export function SocialLink({name,url}:{name:string;url:string}){
- const {localize,t,language}=usePreferences();
+ const {localize}=usePreferences();
  const href=safeExternalUrl(url);
  const content=<><svg className="social-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">{name==='GitHub'?<path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.84.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03A9.58 9.58 0 0 1 12 7c.85 0 1.71.11 2.51.34 1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.58c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/>:<><rect x="3" y="3" width="18" height="18" rx="3" fill="currentColor"/><path d="M7 10v7m0-10v.1m4 10v-7m0 3c0-4 6-4 6 0v4" stroke="var(--paper)" strokeWidth="2" fill="none"/></>}</svg><span>{name}</span><span className="social-arrow" aria-hidden="true">↗</span></>;
  return localize(href?<a className="social-pill social-network" href={href} target="_blank" rel="noopener noreferrer">{content}</a>:<span className="social-pill social-network unconfigured" role="link" aria-disabled="true" tabIndex={0} aria-label={`${name} — lien à renseigner`}><span className="social-tooltip">Lien à renseigner</span>{content}</span>);
 }
 export function Marquee({children}:{children:ReactNode}){
- const {localize,t,language}=usePreferences();
+ const {localize}=usePreferences();
  return localize(<div className="marquee" aria-label="Développement, design graphique, identité visuelle, interfaces, créativité"><div aria-hidden="true">{children}</div></div>);
 }
 
@@ -74,7 +49,7 @@ export function usePortfolioMotion(){
 
 /** Pointer-only affordance; native anchors retain keyboard and touch behavior. */
 export function ProjectCursor(){
- const {localize,t,language}=usePreferences();
+ const {localize}=usePreferences();
  const ref=useRef<HTMLDivElement>(null);
  useEffect(()=>{
   const fine=matchMedia('(any-hover: hover) and (any-pointer: fine)');

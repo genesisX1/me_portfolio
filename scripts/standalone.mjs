@@ -3,13 +3,16 @@ import {homeEntryScript} from '../src/lib/home-entry.mjs';
 import {readFile,writeFile,readdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 const root=resolve('.');
-const built=await build({entryPoints:['scripts/standalone-entry.tsx'],bundle:true,write:false,minify:true,format:'iife',platform:'browser',jsx:'automatic',alias:{'@':resolve('src')},define:{'process.env.NODE_ENV':'"production"'}});
+const built=await build({plugins:[{name:'standalone-images',setup(build){build.onLoad({filter:/optimized-images\.json$/},()=>({contents:'{}',loader:'json'}));}}],entryPoints:['scripts/standalone-entry.tsx'],bundle:true,write:false,minify:true,format:'iife',platform:'browser',jsx:'automatic',alias:{'@':resolve('src')},define:{'process.env.NODE_ENV':'"production"'}});
 let js=built.outputFiles[0].text;
 const runner='data:text/html;base64,'+(await readFile('public/challenge-runner.html')).toString('base64');
 js=js.replaceAll(JSON.stringify('/challenge-runner.html'),JSON.stringify(runner));
-for(const file of ['developer.png','designer.png','projects/ciau.png','projects/cave-du-bourgeois.png','projects/the316tech.png','projects/afripul-support.png','projects/mauvais-temps.png','projects/sceau-origines.png']){
- const data='data:image/'+(file.endsWith('.jpg')?'jpeg':'png')+';base64,'+(await readFile(resolve('public/images',file))).toString('base64');
- js=js.replaceAll(JSON.stringify('/images/'+file),JSON.stringify(data));
+// Keep the PNG fallback in the offline copy; do not duplicate responsive assets
+// inside a single file. The hosted build uses the optimized WebP sources.
+const imageManifest=JSON.parse(await readFile('src/data/optimized-images.json','utf8'));
+for(const original of Object.keys(imageManifest)){
+ const fallback='data:image/png;base64,'+(await readFile(resolve('public',original.slice(1)))).toString('base64');
+ js=js.replaceAll(original,fallback);
 }
 const files=await readdir('out/_next/static/chunks');
 const styles=await Promise.all(files.filter(f=>f.endsWith('.css')).map(f=>readFile('out/_next/static/chunks/'+f,'utf8')));
