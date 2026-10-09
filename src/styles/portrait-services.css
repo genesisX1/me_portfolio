@@ -1,0 +1,247 @@
+/* Portrait: four upright creative tools orbit outside the face. */
+.portrait-effects {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1122/1402;
+  max-width: 100%;
+  translate: -50% 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.portrait-orbit {
+  position: absolute;
+  left: 43%;
+  top: 14%;
+  width: 66%;
+  height: 34%;
+  translate: -50% -50%;
+  opacity: 0;
+  scale: 0.65;
+  transition:
+    opacity 0.25s ease,
+    scale 0.5s var(--ease);
+  pointer-events: none;
+}
+.effects-design .portrait-orbit {
+  opacity: 1;
+  scale: 1;
+}
+.tool-path {
+  position: absolute;
+  left: 0;
+  top: 0;
+  offset-path: ellipse(46% 44% at 50% 50%);
+  offset-distance: var(--orbit-start);
+  offset-rotate: 0deg;
+  animation: creative-orbit 24s linear infinite;
+  animation-play-state: paused;
+  pointer-events: none;
+}
+.portrait-tool {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(35px, 4vw, 52px);
+  height: clamp(35px, 4vw, 52px);
+  border-radius: 13px;
+  font:
+    600 clamp(19px, 2.1vw, 28px)/1 Arial,
+    sans-serif;
+  letter-spacing: -1px;
+  border: 1px solid #ffffff35;
+  box-shadow: 0 6px 16px #0002;
+  opacity: 0;
+  transform: translateY(15px) scale(0.6);
+  transition:
+    opacity 0.18s,
+    transform 0.4s var(--ease);
+  transition-delay: 0s;
+}
+.effects-design .portrait-tool {
+  opacity: 1;
+  transform: none;
+  transition-delay: var(--tool-delay);
+}
+.tool-ps {
+  background: #001e36;
+  color: #31a8ff;
+}
+.tool-ai {
+  background: #330000;
+  color: #ff9a00;
+}
+.tool-id {
+  background: #49021f;
+  color: #ff3366;
+}
+.tool-figma {
+  background: #fff;
+}
+.tool-figma svg {
+  height: 66%;
+  width: auto;
+}
+.effects-design.effects-running .tool-path {
+  animation-play-state: running;
+}
+.portrait-stage:has(.effects-running):not(.designer-active) .portrait-dev {
+  animation: portrait-breathe 6s ease-in-out infinite;
+}
+.portrait-stage:has(.effects-running).designer-active .portrait-design {
+  animation: portrait-breathe 7s ease-in-out infinite;
+}
+@keyframes creative-orbit {
+  from {
+    offset-distance: var(--orbit-start);
+  }
+  to {
+    offset-distance: calc(var(--orbit-start) + 100%);
+  }
+}
+@keyframes portrait-breathe {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -4px;
+  }
+}
+@media (max-width: 760px), (hover: none) and (max-width: 1000px) and (max-height: 500px) {
+  .portrait-orbit {
+    width: 65%;
+    height: 34%;
+  }
+  .portrait-tool {
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+    font-size: 19px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portrait-stage .portrait {
+    animation: none !important;
+    translate: none !important;
+  }
+  .portrait-orbit,
+  .portrait-tool {
+    transition: none !important;
+  }
+  .tool-path {
+    animation: none !important;
+  }
+}
+
+/* Services: quick exit, then a soft card entrance and staggered details. */
+.service-fold {
+  transition:
+    grid-template-rows 0.48s var(--ease),
+    opacity 0.22s ease,
+    visibility 0.48s;
+}
+.service-fold .service-fold-inner,
+.service-fold:not(.expanded) .service-fold-inner {
+  overflow: visible;
+}
+.service-fold .service-art {
+  top: -18px;
+  right: 7%;
+  transform: rotate(-3deg) scale(0.96);
+  translate: 24px 18px;
+  opacity: 0;
+  transform-origin: 55% 70%;
+  transition:
+    opacity 0.18s ease,
+    translate 0.22s var(--ease),
+    transform 0.22s var(--ease);
+  transition-delay: 0s;
+}
+.service-fold.expanded .service-art {
+  transform: rotate(-8deg) scale(1.05);
+  translate: 0 0;
+  opacity: 1;
+  transition:
+    opacity 0.32s ease 0.07s,
+    translate 0.7s var(--ease) 0.06s,
+    transform 0.7s var(--ease) 0.06s;
+}
+.service-art > span,
+.service-art > b,
+.service-art > .service-preview,
+.service-art > div {
+  opacity: 0;
+  translate: 0 7px;
+  transition:
+    opacity 0.12s ease,
+    translate 0.15s var(--ease);
+}
+.service-fold.expanded .service-art > span,
+.service-fold.expanded .service-art > b,
+.service-fold.expanded .service-art > .service-preview,
+.service-fold.expanded .service-art > div {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity 0.35s ease,
+    translate 0.45s var(--ease);
+}
+.service-fold.expanded .service-art > span {
+  transition-delay: 0.13s;
+}
+.service-fold.expanded .service-art > b,
+.service-fold.expanded .service-art > .service-preview {
+  transition-delay: 0.18s;
+}
+.service-fold.expanded .service-art > div {
+  transition-delay: 0.23s;
+}
+.service-fold .service-content > p {
+  translate: 0 8px;
+  transition:
+    opacity 0.16s ease,
+    translate 0.2s var(--ease);
+  transition-delay: 0s;
+}
+.service-fold.expanded .service-content > p {
+  translate: 0 0;
+  transition:
+    opacity 0.32s ease 0.06s,
+    translate 0.45s var(--ease) 0.06s;
+}
+@media (max-width: 760px), (hover: none) and (max-width: 1000px) and (max-height: 500px) {
+  .service-fold .service-art {
+    position: relative;
+    top: auto;
+    right: auto;
+    translate: 0 13px;
+    transform: rotate(-2deg) scale(0.97);
+  }
+  .service-fold.expanded .service-art {
+    translate: 0 0;
+    transform: rotate(-5deg) scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .service-fold,
+  .service-fold .service-art,
+  .service-art > span,
+  .service-art > b,
+  .service-art > .service-preview,
+  .service-art > div,
+  .service-fold .service-content > p {
+    transition: none !important;
+    transition-delay: 0s !important;
+  }
+  .service-fold .service-art,
+  .service-art > span,
+  .service-art > b,
+  .service-art > .service-preview,
+  .service-art > div,
+  .service-fold .service-content > p {
+    translate: none !important;
+  }
+}

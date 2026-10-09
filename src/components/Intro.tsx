@@ -56,16 +56,21 @@ export function Intro({ onReady }: { onReady: (ready: boolean) => void }) {
     setShort(returning);
     setPhase('loading');
 
-    const delay = (ms: number) => new Promise<void>(resolve => {
-      timers.push(window.setTimeout(resolve, ms));
-    });
+    const delay = (ms: number) =>
+      new Promise<void>((resolve) => {
+        timers.push(window.setTimeout(resolve, ms));
+      });
     // Only the initially visible portrait can hold the introduction. The second
     // portrait has its own readiness guard and must not delay entry on mobile.
     const image = document.querySelector<HTMLImageElement>('.portrait-dev');
-    const portrait = new Promise<void>(resolve => {
+    const portrait = new Promise<void>((resolve) => {
       if (!image) return resolve();
       const loaded = () => {
-        if (image.decode) image.decode().catch(() => {}).then(resolve);
+        if (image.decode)
+          image
+            .decode()
+            .catch(() => {})
+            .then(resolve);
         else resolve();
       };
       if (image.complete) return loaded();
@@ -77,15 +82,14 @@ export function Intro({ onReady }: { onReady: (ready: boolean) => void }) {
       });
     });
 
-    Promise.all([
-      delay(timing.minimum),
-      Promise.race([portrait, delay(timing.imageTimeout)]),
-    ]).then(() => {
-      if (cancelled || finished || reduced.matches) return;
-      setPhase('leaving');
-      onReady(true);
-      timers.push(window.setTimeout(() => finish(!returning), timing.exit));
-    });
+    Promise.all([delay(timing.minimum), Promise.race([portrait, delay(timing.imageTimeout)])]).then(
+      () => {
+        if (cancelled || finished || reduced.matches) return;
+        setPhase('leaving');
+        onReady(true);
+        timers.push(window.setTimeout(() => finish(!returning), timing.exit));
+      },
+    );
 
     const change = () => {
       if (reduced.matches) finish();
@@ -94,7 +98,7 @@ export function Intro({ onReady }: { onReady: (ready: boolean) => void }) {
     return () => {
       cancelled = true;
       timers.forEach(clearTimeout);
-      cleanups.forEach(cleanup => cleanup());
+      cleanups.forEach((cleanup) => cleanup());
       reduced.removeEventListener('change', change);
     };
   }, [onReady]);
@@ -102,9 +106,23 @@ export function Intro({ onReady }: { onReady: (ready: boolean) => void }) {
   return localize(
     <div className={`intro-cover intro-${phase}${short ? ' intro-short' : ''}`} aria-hidden="true">
       <span className="intro-greeting">Bonjour.</span>
-      <div className="intro-panel intro-left"><span className="intro-code">CODE <b>&lt;/&gt;</b></span></div>
-      <div className="intro-panel intro-right"><span className="intro-design">DESIGN <b>✳</b></span></div>
-      <div className="intro-progress"><span>JOACKIM DATE</span><i><b/></i><span>CODE + DESIGN</span></div>
+      <div className="intro-panel intro-left">
+        <span className="intro-code">
+          CODE <b>&lt;/&gt;</b>
+        </span>
+      </div>
+      <div className="intro-panel intro-right">
+        <span className="intro-design">
+          DESIGN <b>✳</b>
+        </span>
+      </div>
+      <div className="intro-progress">
+        <span>JOACKIM DATE</span>
+        <i>
+          <b />
+        </i>
+        <span>CODE + DESIGN</span>
+      </div>
     </div>,
   );
 }

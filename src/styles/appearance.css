@@ -1,0 +1,413 @@
+/* Visitor preferences: the approved light palette plus a warm anthracite theme. */
+.site-preferences {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.preference-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+}
+.preference-controls button {
+  min-height: 44px;
+  background: #efefeb;
+  color: #292925;
+  border-radius: 99px;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 15px;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.theme-options button > span:first-child {
+  font:
+    23px/1 Arial,
+    sans-serif;
+}
+.language-options {
+  display: flex;
+  background: #efefeb;
+  border-radius: 99px;
+  padding: 3px;
+}
+.language-options button {
+  min-width: 42px;
+  min-height: 38px;
+  padding: 0 10px;
+  background: transparent;
+  font-size: 12px;
+}
+.language-options button[aria-pressed='true'] {
+  background: #242424;
+  color: #fafaf8;
+}
+.preference-controls button:focus-visible {
+  outline-offset: 2px;
+}
+.preference-controls button:hover {
+  background: #e3e3dc;
+}
+.language-options button[aria-pressed='true']:hover {
+  background: #333;
+}
+.preference-controls.compact {
+  gap: 4px;
+}
+.preference-controls.compact button {
+  width: 40px;
+  min-height: 40px;
+  padding: 0;
+  background: #ffffff10;
+  color: #f4f4ef;
+  font-size: 11px;
+}
+.preference-controls.compact button:hover {
+  background: #ffffff25;
+}
+.preference-controls.compact .theme-options button > span {
+  font-size: 21px;
+}
+.drawer-inner > .preference-controls {
+  margin-top: 24px;
+}
+.mobile-drawer .preference-controls button,
+.mobile-drawer .language-options {
+  background: #ffffff10;
+  color: #f6f6f2;
+}
+.mobile-drawer .language-options button[aria-pressed='true'] {
+  background: #eee;
+  color: #202020;
+}
+html[data-theme='dark'] {
+  --ink: #f0eee9;
+  --paper: #232423;
+  --accent: #ed956c;
+  --muted: #b9bab2;
+  --ground: #171918;
+  --line: #41443f;
+  color-scheme: dark;
+}
+html[data-theme='dark'] body {
+  background: radial-gradient(ellipse at 52% 35%, #30332f 0%, #151716 70%);
+}
+html[data-theme='dark'] .panel {
+  border-color: #393c37;
+  box-shadow: 0 22px 35px -25px #0009;
+}
+html[data-theme='dark'] .hero.is-design {
+  border-color: #4b413a;
+}
+html[data-theme='dark'] .hero.is-design .hero-name > b {
+  color: #f0eee9;
+}
+html[data-theme='dark'] .hero-name > span {
+  -webkit-text-stroke-color: var(--ink);
+}
+html[data-theme='dark'] .signature-badge text {
+  fill: var(--ink);
+}
+html[data-theme='dark'] .intro-panel > span,
+html[data-theme='dark'] .intro-cover > .intro-greeting {
+  color: #fafaf8;
+}
+html[data-theme='dark'] .availability,
+html[data-theme='dark'] .social-pill {
+  background: #30332f;
+  border-color: #494c46;
+  color: #f0eee9;
+}
+html[data-theme='dark'] .hero-intro > .eyebrow,
+html[data-theme='dark'] .hero-aside > .eyebrow,
+html[data-theme='dark'] .location,
+html[data-theme='dark'] .intro-replay,
+html[data-theme='dark'] .portrait-hint {
+  color: #b9bab2;
+}
+html[data-theme='dark'] .social-network .social-icon path[stroke] {
+  stroke: #30332f;
+}
+html[data-theme='dark'] .intro-replay:hover {
+  background: #383b35;
+  color: #fff;
+}
+html[data-theme='dark'] .pill.dark {
+  background: #f0eee9;
+  color: #20221f;
+  box-shadow:
+    0 0 0 4px #ffffff08,
+    0 9px 18px #0003;
+}
+html[data-theme='dark'] .pill.dark:hover {
+  background: #fff;
+}
+html[data-theme='dark'] .pill.light {
+  background: #373b34;
+  color: #f0eee9;
+  border: 1px solid #54584f;
+}
+html[data-theme='dark'] .project-card {
+  background: #2d302b;
+  border-color: #484b44;
+}
+html[data-theme='dark'] .project-meta p,
+html[data-theme='dark'] .draft-note,
+html[data-theme='dark'] .work-note,
+html[data-theme='dark'] .simple-heading p,
+html[data-theme='dark'] .projects-empty {
+  color: #b9bab2;
+}
+html[data-theme='dark'] .project-meta .eyebrow {
+  color: #d1b39c;
+}
+html[data-theme='dark'] .project-links,
+html[data-theme='dark'] .tags span {
+  border-color: #484b44;
+  color: #d3d5cc;
+}
+html[data-theme='dark'] .tags span {
+  background: #353931;
+}
+html[data-theme='dark'] .filters {
+  background: #30342e;
+}
+html[data-theme='dark'] .filters button {
+  color: #d1d3cb;
+}
+html[data-theme='dark'] .filters button.active {
+  background: #f0eee9;
+  color: #232423;
+}
+html[data-theme='dark'] .filters button:hover:not(.active) {
+  background: #43483d;
+}
+html[data-theme='dark'] .section-heading > span {
+  color: #33362f;
+}
+html[data-theme='dark'] .service {
+  border-color: #484b44;
+}
+html[data-theme='dark'] .service.open {
+  background: #151716;
+  color: #f0eee9;
+}
+html[data-theme='dark'] .service-content > p {
+  color: #c2c4b9;
+}
+html[data-theme='dark'] .service-number {
+  color: #a8ac9f;
+}
+html[data-theme='dark'] .service-art {
+  color: #191919;
+}
+html[data-theme='dark'] .career-row,
+html[data-theme='dark'] .career-list,
+html[data-theme='dark'] .experience-footer {
+  border-color: #41443c;
+}
+html[data-theme='dark'] .career-row p,
+html[data-theme='dark'] .career-row small,
+html[data-theme='dark'] .career-period,
+html[data-theme='dark'] .career-index,
+html[data-theme='dark'] .experience-intro p,
+html[data-theme='dark'] .experience-footer > span {
+  color: #b9bab2;
+}
+html[data-theme='dark'] .career-row:hover {
+  background: #ffffff04;
+}
+html[data-theme='dark'] .booking {
+  background: #1b201d;
+}
+html[data-theme='dark']
+  .booking
+  :is(
+    .booking-heading .eyebrow,
+    .booking-duration,
+    .booking-intro,
+    .booking-notes,
+    .calendar-week,
+    .calendar-caption,
+    .booking-empty p,
+    .booking-time-note,
+    .booking-form-intro p,
+    .booking-result p,
+    form label
+  ) {
+  color: #bdc4b5;
+}
+html[data-theme='dark'] .calendar-header button,
+html[data-theme='dark'] .calendar-caption,
+html[data-theme='dark'] .booking-empty,
+html[data-theme='dark'] .booking-form-wrap {
+  border-color: #484e42;
+}
+html[data-theme='dark'] .calendar-days button:disabled {
+  color: #73786d;
+}
+html[data-theme='dark'] .calendar-header button:hover:not(:disabled),
+html[data-theme='dark'] .calendar-days button:hover:not(:disabled),
+html[data-theme='dark'] .booking-times button:hover {
+  background: #3d4436;
+}
+html[data-theme='dark'] .calendar-days button.selected,
+html[data-theme='dark'] .booking-times button.selected {
+  background: #f0eee9;
+  color: #20251c;
+}
+html[data-theme='dark'] .booking-empty > span {
+  background: #343d31;
+  color: #d0d6c7;
+}
+html[data-theme='dark'] .booking-status {
+  color: #edb791;
+}
+html[data-theme='dark'] .contact-bottom {
+  border-color: #41443c;
+}
+html[data-theme='dark'] .contact-bottom > p,
+html[data-theme='dark'] .contact-signature > span,
+html[data-theme='dark'] footer,
+html[data-theme='dark'] footer > span:nth-child(2) {
+  color: #b9bab2;
+}
+html[data-theme='dark'] .contact h2 > span {
+  -webkit-text-stroke-color: var(--ink);
+}
+html[data-theme='dark'] .text-link {
+  border-color: #757a6d;
+}
+html[data-theme='dark'] .modal {
+  background: #232723;
+  color: #f0eee9;
+  border-color: #4b5045;
+}
+html[data-theme='dark'] .modal p,
+html[data-theme='dark'] form label {
+  color: #bfc5b7;
+}
+html[data-theme='dark'] .modal .eyebrow {
+  color: #edb791;
+}
+html[data-theme='dark'] .close,
+html[data-theme='dark'] .menu-button {
+  background: #3b4135;
+  color: #f0eee9;
+}
+html[data-theme='dark'] input,
+html[data-theme='dark'] textarea,
+html[data-theme='dark'] select,
+html[data-theme='dark'] .booking input,
+html[data-theme='dark'] .booking select,
+html[data-theme='dark'] .booking textarea {
+  background: #1a1e19;
+  color: #f0eee9;
+  border-color: #555b4e;
+}
+html[data-theme='dark'] input::placeholder,
+html[data-theme='dark'] textarea::placeholder {
+  color: #a9b19f;
+}
+html[data-theme='dark'] .code-input textarea {
+  background: #202222;
+  color: #f0e5bf;
+}
+html[data-theme='dark'] .portrait-controls > div {
+  background: #292f27e8;
+  border-color: #555e4a;
+}
+html[data-theme='dark'] .portrait-controls button.selected {
+  background: #eff0e8;
+  color: #242723;
+}
+html[data-theme='dark'] .site-preferences .preference-controls button,
+html[data-theme='dark'] .site-preferences .language-options {
+  background: #353a31;
+  color: #e7eadf;
+}
+html[data-theme='dark'] .site-preferences .language-options button {
+  background: transparent;
+}
+html[data-theme='dark'] .site-preferences .language-options button[aria-pressed='true'] {
+  background: #eff0e8;
+  color: #242723;
+}
+@media (max-width: 760px), (hover: none) and (max-width: 1000px) and (max-height: 500px) {
+  .preference-controls.compact {
+    display: none;
+  }
+  .site-preferences .preference-controls button {
+    font-size: 12px;
+  }
+  .header .availability {
+    white-space: normal;
+    line-height: 1.4;
+  }
+  .drawer-inner > .preference-controls button {
+    min-height: 44px;
+  }
+  .drawer-inner .language-options button {
+    min-height: 38px;
+  }
+  .hero-name {
+    padding-top: 15px;
+  }
+  .contact .contact-title {
+    white-space: normal;
+  }
+  .booking-duration {
+    white-space: normal;
+  }
+  .pill {
+    max-width: 100%;
+    white-space: normal;
+  }
+}
+@media (max-width: 380px) {
+  .site-preferences .preference-controls {
+    gap: 4px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preference-controls button {
+    transition: none;
+  }
+}
+html[data-theme='dark'] .challenge .challenge-title .title-mask {
+  color: #f0eee9;
+}
+html[data-theme='dark'] .service-art-0 {
+  color: #c5cbbb;
+}
+html[data-theme='dark'] .skip-link {
+  background: #f0eee9;
+  color: #20221f;
+}
+
+@media (min-width: 901px) and (max-width: 1250px) {
+  .desktop-nav {
+    gap: 12px;
+    font-size: 11px;
+  }
+  .header .availability {
+    max-width: 235px;
+    white-space: normal;
+    line-height: 1.4;
+  }
+  .header-cta {
+    font-size: 11px;
+    gap: 10px;
+  }
+}
+html[data-theme='dark'] .hero-intro p {
+  color: var(--muted);
+}
+.booking-form-intro p {
+  text-transform: none;
+}
